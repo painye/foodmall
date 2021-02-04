@@ -7,10 +7,44 @@
     <resultMap id="commodityMapper" type="com.yp.foodmall.food.entity.Commodity">
         <id property="id" column="id"/>
         <result property="comNumber" column="comNumber"/>
-        <result property="sex" column="ssex"/>
-        <result property="age" column="sage"/>
-        <result property="dept" column="sdept"/>
+        <result property="comName" column="comName"/>
+        <result property="categoryNumber" column="categoryNumber"/>
+        <result property="message" column="message"/>
+        <result property="price" column="price"/>
+        <result property="image" column="image"/>
+        <result property="storeNumber" column="storeNumber"/>
+        <result property="stock" column="stock"/>
+        <result property="exTime" column="exTime"/>
+        <result property="taste" column="taste"/>
+        <result property="mfrsNumber" column="mfrsNumber"/>
+        <result property="pack" column="pack"/>
+        <result property="weight" column="weight"/>
+        <result property="grade" column="grade"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime" />
     </resultMap>
 
+    <insert id="insertCom">
+        insert into commodity
+        (comNumber, comName, categoryNumber,message,price,image,storeNumber,stock,
+        exTime,taste,mfrsNumber,pack,weight,grade,createTime,updateTime) values
+        (#{comNumber},#{comName},#{categoryNumber},#{message},#{price},#{image},#{storeNumber}
+        ,#{stock},#{exTime},#{taste},#{mfrsNumber},#{pack},#{weight},#{grade},#{createTime},#{updateTime})
+    </insert>
 
+    <insert id="deleteCom">
+        delete from commodity where comNumber = #{comNumber}
+    </insert>
+
+    <update id="updateCom">
+
+    </update>
+
+    <select id="selectOneByNUmber" resultMap="commodityMapper">
+
+    </select>
+
+    <select id="selectList" resultMap="commodityMapper">
+
+    </select>
 </mapper>
