@@ -22,29 +22,70 @@
         <result property="grade" column="grade"/>
         <result property="createTime" column="createTime"/>
         <result property="updateTime" column="updateTime" />
+        <result property="deleteEnable" column="deleteEnable"/>
+        <result property="sales" column="sales"/>
     </resultMap>
 
     <insert id="insertCom">
         insert into commodity
         (comNumber, comName, categoryNumber,message,price,image,storeNumber,stock,
-        exTime,taste,mfrsNumber,pack,weight,grade,createTime,updateTime) values
+        exTime,taste,mfrsNumber,pack,weight,grade,createTime,updateTime,deleteEnable,sales) values
         (#{comNumber},#{comName},#{categoryNumber},#{message},#{price},#{image},#{storeNumber}
-        ,#{stock},#{exTime},#{taste},#{mfrsNumber},#{pack},#{weight},#{grade},#{createTime},#{updateTime})
+        ,#{stock},#{exTime},#{taste},#{mfrsNumber},#{pack},#{weight},#{grade},#{createTime},#{updateTime},#{deleteEnable},#{sales})
     </insert>
 
-    <insert id="deleteCom">
-        delete from commodity where comNumber = #{comNumber}
-    </insert>
+<!--    <insert id="deleteCom">-->
+<!--        delete from commodity where comNumber = #{comNumber}-->
+<!--    </insert>-->
+    <update id="deleteCom">
+        update commodity set deleteEnable = 1 where comNumber=#{commodityNumber}
+    </update>
 
     <update id="updateCom">
-
+        update commodity
+            <set>
+                <if test="comName != null">
+                    comName=#{comName},
+                </if>
+                <if test="message != null">
+                    message=#{message},
+                </if>
+                <if test="price != null">
+                     price=#{price},
+                </if>
+                <if test="image != null">
+                    image=#{image},
+                </if>
+                <if test="stock != null">
+                    stock=#{stock},
+                </if>
+                <if test="pack != null">
+                    pack=#{pack}
+                </if>
+            </set>
     </update>
 
     <select id="selectOneByNUmber" resultMap="commodityMapper">
-
+        select *from commodity where comNumber = #{commodityNumber} and deleteEnable = 0
     </select>
 
     <select id="selectList" resultMap="commodityMapper">
+        select *from commodity
+        <where>
+            <if test="categoryNumber != null">
+                categoryNumber = #{categoryNumber}
+            </if>
+            <if test="storeNumber != null">
+                and storeNumber = #{storeNumber}
+            </if>
+            <if test="taste != null">
+                and taste = #{taste}
+            </if>
+            <if test="mfrsNumber != null">
+                and mfrsNumber = #{mfrsNumber}
+            </if>
+            and deleteEnable = 0
+        </where>
 
     </select>
 </mapper>

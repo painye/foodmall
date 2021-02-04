@@ -8,6 +8,6 @@ public interface ICommodityService {
     public void insertCom(Commodity com);
     public void deleteCom(String commodityNumber);
     public void updateCom(Commodity com);
-    public void selectOneByNUmber(String commodityNumber);
-    public void selectOne(Commodity com);
+    public Commodity selectOneByNUmber(String commodityNumber);
+    public List<Commodity> selectList(Commodity com);
 }

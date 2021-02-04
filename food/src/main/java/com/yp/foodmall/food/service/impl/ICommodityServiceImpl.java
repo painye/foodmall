@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +23,8 @@ public class ICommodityServiceImpl implements ICommodityService {
     public void insertCom(Commodity com) {
         Date date =new Date();
         com.setCreateTime(date);
+        com.setDeleteEnable(0);
+        com.setSales(0);
         comMapper.insertCom(com);
     }
 
@@ -36,12 +39,13 @@ public class ICommodityServiceImpl implements ICommodityService {
     }
 
     @Override
-    public void selectOneByNUmber(String commodityNumber) {
-        comMapper.selectOneByNUmber(commodityNumber);
+    public Commodity selectOneByNUmber(String commodityNumber) {
+       return comMapper.selectOneByNUmber(commodityNumber);
     }
 
     @Override
-    public void selectOne(Commodity com) {
-        comMapper.selectList(com);
+    public List<Commodity> selectList(Commodity com) {
+        List<Commodity> commodities = comMapper.selectList(com);
+        return commodities;
     }
 }

@@ -28,4 +28,6 @@ public class Commodity {
     private Double grade;
     private Date createTime;
     private Date  updateTime;
+    private Integer deleteEnable;
+    private Integer sales;
 }
