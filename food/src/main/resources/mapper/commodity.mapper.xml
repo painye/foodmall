@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yp.foodmall.food.mapper.IComMapper">
+    <resultMap id="commodityMapper" type="com.yp.foodmall.food.entity.Commodity">
+        <id property="id" column="id"/>
+        <result property="comNumber" column="comNumber"/>
+        <result property="sex" column="ssex"/>
+        <result property="age" column="sage"/>
+        <result property="dept" column="sdept"/>
+    </resultMap>
+
+
+</mapper>

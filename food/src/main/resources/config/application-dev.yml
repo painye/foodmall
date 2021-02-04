@@ -1,0 +1,15 @@
+#服务器端口号
+server:
+  port: 8099
+
+#配置数据源
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/food?useSSl=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+      username: root
+      password:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  mapper-locations: mapper/*.mapper.xml
+  type-aliases-package: com.yp.springboot.ssm.entity
