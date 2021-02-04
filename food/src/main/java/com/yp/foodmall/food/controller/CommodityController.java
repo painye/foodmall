@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/app/commodity")
-@Api(tags = "商品得管理")
+@Api(tags = "商品管理")
 public class CommodityController {
     @Autowired
     ICommodityServiceImpl iCommodityService;
@@ -36,13 +36,13 @@ public class CommodityController {
         iCommodityService.updateCom(com);
     }
 
-    @ApiOperation(value = "")
+    @ApiOperation(value = "查找某个商品")
     @GetMapping("/findCommodityOneByNumber.do")
     public Commodity findCommodityOneByNumber(String comNumber){
         Commodity commodity = iCommodityService.selectOneByNUmber(comNumber);
         return commodity;
     }
-
+    @ApiOperation(value = "")
     @GetMapping("/findCommodityList.do")
     public List<Commodity> findCommodityList(Commodity commodity){
         List<Commodity> commodities = iCommodityService.selectList(commodity);

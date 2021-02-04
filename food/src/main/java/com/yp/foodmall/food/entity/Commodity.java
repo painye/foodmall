@@ -19,8 +19,8 @@ public class Commodity {
     private Double price;
     private String image;
     private String storeNumber;
-    private int stock;
-    private int exTime;
+    private Integer stock;
+    private Integer exTime;
     private String taste;
     private String mfrsNumber;
     private String pack;
