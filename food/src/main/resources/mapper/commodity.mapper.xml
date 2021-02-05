@@ -8,11 +8,9 @@
         <id property="id" column="id"/>
         <result property="comNumber" column="comNumber"/>
         <result property="comName" column="comName"/>
-        <result property="categoryNumber" column="categoryNumber"/>
         <result property="message" column="message"/>
         <result property="price" column="price"/>
         <result property="image" column="image"/>
-        <result property="storeNumber" column="storeNumber"/>
         <result property="stock" column="stock"/>
         <result property="exTime" column="exTime"/>
         <result property="taste" column="taste"/>
@@ -24,21 +22,50 @@
         <result property="updateTime" column="updateTime" />
         <result property="deleteEnable" column="deleteEnable"/>
         <result property="sales" column="sales"/>
+        <association property="category" column="categoryId" resultMap="categoryMapper"/>
+        <association property="store" column="storeId" resultMap="storeMapper"/>
     </resultMap>
+
+    <resultMap id="storeMapper" type="com.yp.foodmall.food.entity.Store">
+        <id property="storeId" column="storeId"/>
+        <result property="storeName" column="storeName"/>
+        <result property="storeGrade" column="storeGrade"/>
+        <result property="license" column="license"/>
+        <result property="phone" column="phone"/>
+        <association property="master" column="masterId" resultMap="masterMapper"/>
+    </resultMap>
+
+    <resultMap id="masterMapper" type="com.yp.foodmall.food.entity.Master">
+        <id property="masterId" column="masterId"/>
+        <result property="userName" column="userName"/>
+        <result property="password" column="password"/>
+        <result property="question" column="question"/>
+        <result property="answer" column="question"/>
+        <result property="profit" column="profit"/>
+    </resultMap>
+
+    <resultMap id="categoryMapper" type="com.yp.foodmall.food.entity.Category">
+        <id property="categoryId" column="categoryId"/>
+        <result property="categoryName" column="categoryName"/>
+        <result property="composition" column="composition"/>
+        <result property="categoryMessage" column="categoryMessage"/>
+    </resultMap>
+
+
 
     <insert id="insertCom">
         insert into commodity
-        (comNumber, comName, categoryNumber,message,price,image,storeNumber,stock,
-        exTime,taste,mfrsNumber,pack,weight,grade,createTime,updateTime,deleteEnable,sales) values
-        (#{comNumber},#{comName},#{categoryNumber},#{message},#{price},#{image},#{storeNumber}
-        ,#{stock},#{exTime},#{taste},#{mfrsNumber},#{pack},#{weight},#{grade},#{createTime},#{updateTime},#{deleteEnable},#{sales})
+        (comNumber, comName,message,price,image,stock,
+        exTime,taste,mfrsNumber,pack,weight,grade,createTime,updateTime,deleteEnable,sales, categoryId, storeId) values
+        (#{comNumber},#{comName},#{message},#{price},#{image}
+        ,#{stock},#{exTime},#{taste},#{mfrsNumber},#{pack},#{weight},#{grade},#{createTime},#{updateTime},#{deleteEnable},#{sales}, #{category.id},#{store.id})
     </insert>
 
 <!--    <insert id="deleteCom">-->
 <!--        delete from commodity where comNumber = #{comNumber}-->
 <!--    </insert>-->
     <update id="deleteCom">
-        update commodity set deleteEnable = 1 where comNumber=#{commodityNumber}
+        update commodity set deleteEnable = 1 where id=#{id}
     </update>
 
     <update id="updateCom">
@@ -66,17 +93,19 @@
     </update>
 
     <select id="selectOneByNUmber" resultMap="commodityMapper">
-        select *from commodity where comNumber = #{commodityNumber} and deleteEnable = 0
+        select commodity.*, category.*
+        from commodity left outer join category on commodity.categoryId = category.categoryId where commodity.id = #{comId};
     </select>
 
     <select id="selectList" resultMap="commodityMapper">
-        select *from commodity
+        select commodity.*, category.*
+        from commodity left outer join category on commodity.categoryId = category.categoryId
         <where>
-            <if test="categoryNumber != null">
-                categoryNumber = #{categoryNumber}
+            <if test="category != null">
+                category.categoryId = #{category.categoryId}
             </if>
-            <if test="storeNumber != null">
-                and storeNumber = #{storeNumber}
+            <if test="store != null">
+
             </if>
             <if test="taste != null">
                 and taste = #{taste}
@@ -88,4 +117,30 @@
         </where>
 
     </select>
+
+    <insert id="insertCategory">
+        insert into category (categoryId, categoryName, categoryMessage, composition) values
+        (#{categoryId}, #{categoryName}, #{categoryMessage}, #{composition})
+    </insert>
+
+    <delete id="deleteCategory">
+        delete from category where categoryId = #{categoryId}
+    </delete>
+
+    <update id="updateCategory">
+        update category
+        <set>
+            <if test="categoryName != null">
+                categoryName=#{categoryName},
+            </if>
+            <if test="categoryMessage != null">
+                categoryMessage=#{categoryMessage},
+            </if>
+            <if test="composition != null">
+                composition=#{composition}
+            </if>
+        </set>
+        where categoryId=#{categoryId}
+
+    </update>
 </mapper>

@@ -1,5 +1,6 @@
 package com.yp.foodmall.food.controller;
 
+import com.yp.foodmall.food.entity.Category;
 import com.yp.foodmall.food.entity.Commodity;
 import com.yp.foodmall.food.service.impl.ICommodityServiceImpl;
 import io.swagger.annotations.Api;
@@ -26,8 +27,8 @@ public class CommodityController {
 
     @ApiOperation(value = "下架商品")
     @DeleteMapping("/deleteCommodity.do")
-    public void deleteCommodity(String comNUmber){
-        iCommodityService.deleteCom(comNUmber);
+    public void deleteCommodity(int comId){
+        iCommodityService.deleteCom(comId);
     }
 
     @ApiOperation(value = "修改商品基本信息")
@@ -38,8 +39,8 @@ public class CommodityController {
 
     @ApiOperation(value = "查找某个商品")
     @GetMapping("/findCommodityOneByNumber.do")
-    public Commodity findCommodityOneByNumber(String comNumber){
-        Commodity commodity = iCommodityService.selectOneByNUmber(comNumber);
+    public Commodity findCommodityOneByNumber(int comId){
+        Commodity commodity = iCommodityService.selectOneByNUmber(comId);
         return commodity;
     }
     @ApiOperation(value = "")
@@ -49,7 +50,22 @@ public class CommodityController {
         return commodities;
     }
 
+    @ApiOperation(value="添加商品种类")
+    @PutMapping("/addCate.do")
+    public void addCate(Category category){
+        iCommodityService.insertCate(category);
+    }
 
+    @ApiOperation(value="删除商品种类")
+    @DeleteMapping("/deleteCate.do")
+    public void deleteCate(int categoryId){
+        iCommodityService.deleteCate(categoryId);
+    }
 
+    @ApiOperation(value = "修改商品种类")
+    @PostMapping("/updateCate.do")
+    public void updateCate(Category category){
+        iCommodityService.updateCate(category);
+    }
 
 }

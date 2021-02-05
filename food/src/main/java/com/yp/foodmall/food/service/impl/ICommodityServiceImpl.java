@@ -1,5 +1,6 @@
 package com.yp.foodmall.food.service.impl;
 
+import com.yp.foodmall.food.entity.Category;
 import com.yp.foodmall.food.entity.Commodity;
 import com.yp.foodmall.food.mapper.IComMapper;
 import com.yp.foodmall.food.service.ICommodityService;
@@ -23,14 +24,12 @@ public class ICommodityServiceImpl implements ICommodityService {
     public void insertCom(Commodity com) {
         Date date =new Date();
         com.setCreateTime(date);
-        com.setDeleteEnable(0);
-        com.setSales(0);
         comMapper.insertCom(com);
     }
 
     @Override
-    public void deleteCom(String commodityNumber) {
-        comMapper.deleteCom(commodityNumber);
+    public void deleteCom(int id) {
+        comMapper.deleteCom(id);
     }
 
     @Override
@@ -39,13 +38,28 @@ public class ICommodityServiceImpl implements ICommodityService {
     }
 
     @Override
-    public Commodity selectOneByNUmber(String commodityNumber) {
-       return comMapper.selectOneByNUmber(commodityNumber);
+    public Commodity selectOneByNUmber(int id) {
+       return comMapper.selectOneByNUmber(id);
     }
 
     @Override
     public List<Commodity> selectList(Commodity com) {
         List<Commodity> commodities = comMapper.selectList(com);
         return commodities;
+    }
+
+    @Override
+    public void insertCate(Category category) {
+        comMapper.insertCategory(category);
+    }
+
+    @Override
+    public void deleteCate(int categoryId) {
+        comMapper.deleteCategory(categoryId);
+    }
+
+    @Override
+    public void updateCate(Category category) {
+        comMapper.updateCategory(category);
     }
 }

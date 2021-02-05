@@ -14,11 +14,11 @@ public class Commodity {
     private int id;
     private String comNumber;
     private String comName;
-    private String categoryNumber;
+    private Category category;
     private String message;
     private Double price;
     private String image;
-    private String storeNumber;
+    private Store store;
     private Integer stock;
     private Integer exTime;
     private String taste;
