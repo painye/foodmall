@@ -1,4 +1,4 @@
-package com.yp.foodmall.food.entity;
+package com.yp.foodmall.common.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.yp.foodmall.food.controller;
 
-import com.yp.foodmall.food.entity.Category;
-import com.yp.foodmall.food.entity.Commodity;
+import com.yp.foodmall.common.entity.Category;
+import com.yp.foodmall.common.entity.Commodity;
 import com.yp.foodmall.food.service.impl.ICommodityServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

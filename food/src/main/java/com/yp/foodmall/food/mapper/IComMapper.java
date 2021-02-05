@@ -1,7 +1,7 @@
 package com.yp.foodmall.food.mapper;
 
-import com.yp.foodmall.food.entity.Category;
-import com.yp.foodmall.food.entity.Commodity;
+import com.yp.foodmall.common.entity.Category;
+import com.yp.foodmall.common.entity.Commodity;
 import org.apache.ibatis.annotations.Mapper;
 import sun.misc.Cache;
 
