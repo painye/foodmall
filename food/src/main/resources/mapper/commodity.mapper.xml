@@ -32,6 +32,8 @@
         <result property="storeGrade" column="storeGrade"/>
         <result property="license" column="license"/>
         <result property="phone" column="phone"/>
+        <result property="createTime" column="createTime"/>
+        <result property="deleteEnable" column="deleteEnable"/>
         <association property="master" column="masterId" resultMap="masterMapper"/>
     </resultMap>
 
@@ -58,7 +60,7 @@
         (comNumber, comName,message,price,image,stock,
         exTime,taste,mfrsNumber,pack,weight,grade,createTime,updateTime,deleteEnable,sales, categoryId, storeId) values
         (#{comNumber},#{comName},#{message},#{price},#{image}
-        ,#{stock},#{exTime},#{taste},#{mfrsNumber},#{pack},#{weight},#{grade},#{createTime},#{updateTime},#{deleteEnable},#{sales}, #{category.id},#{store.id})
+        ,#{stock},#{exTime},#{taste},#{mfrsNumber},#{pack},#{weight},#{grade},#{createTime},#{updateTime},#{deleteEnable},#{sales}, #{category.categoryId},#{store.storeId})
     </insert>
 
 <!--    <insert id="deleteCom">-->

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,4 +16,6 @@ public class Store {
     private String license;
     private Master master;
     private Integer phone;
+    private Date createTime;
+    private Integer deleteEnable;
 }

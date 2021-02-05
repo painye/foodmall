@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yp.foodmall.user.mapper.IUserMapper">
+    <resultMap id="userMapper" type="com.yp.foodmall.common.entity.User">
+        <id property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userPassword" column="user_password"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="userImage" column="user_image"/>
+        <result property="money" column="money"/>
+        <result property="mPassword" column="m_password"/>
+        <result property="userAddress" column="user_address"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deleteEnable" column="delete_enable"/>
+    </resultMap>
+
+    <insert id="insertUser">
+        insert into user_table
+        (user_name,user_password,user_phone,user_image,money,m_password,user_address,create_time,delete_enable) values
+        (#{userName}, #{userPassword},#{userPhone}, #{userImage},#{money}, #{mPassword},#{userAddress}, #{createTime},#{deleteEnable})
+    </insert>
+
+    <update id="deleteUser">
+        update user_table set delete_enable = 1 where user_id = #{userId}
+    </update>
+
+    <update id="updateUser">
+        update user_table
+        <set>
+            <if test="userName != null">
+                user_name = #{userName},
+            </if>
+            <if test="userPassword != null">
+                user_password = #{userPassword},
+            </if>
+            <if test="userPhone != null">
+                user_phone = #{userPhone},
+            </if>
+            <if test="userImage != null">
+                user_image = #{userImage},
+            </if>
+            <if test="money != null">
+                money = #{money},
+            </if>
+            <if test="mPassword != null">
+                m_password = #{mPassword},
+            </if>
+            <if test="userAddress != null">
+                user_address = #{userAddress},
+            </if>
+            <if test="deleteEnable ==  0">
+                delete_enable = 0
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <select id="selectOneByUserNameAndPassword" resultMap="userMapper">
+        select user_id, user_name, user_phone, user_image, money, m_password, user_address
+        from user_table where user_name = #{userName} and user_password = #{userPassword} and delete_enable = 0
+    </select>
+
+    <select id="selectOneById" resultMap="userMapper">
+        select * from user_table where user_id = #{userId} and delete_enable = 0
+    </select>
+
+    <select id="selectList" resultMap="userMapper">
+        s
+    </select>
+
+
+
+</mapper>
