@@ -43,26 +43,27 @@
         update commodity
             <set>
                 <if test="comName != null">
-                    comName=#{comName}
+                    comName=#{comName},
                 </if>
                 <if test="message != null">
-                    ,message=#{message}
+                    message=#{message},
                 </if>
                 <if test="price != null">
-                     ,price=#{price}
+                     price=#{price},
                 </if>
                 <if test="image != null">
-                    ,image=#{image}
+                    image=#{image},
                 </if>
                 <if test="pack != null">
-                    ,pack=#{pack}
+                    pack=#{pack},
                 </if>
                 <if test="deleteEnable != null">
-                    ,delete_enable=#{deleteEnable}
+                    delete_enable=#{deleteEnable},
                 </if>
                 <if test="category != null">
-                    ,categoryId = #{category.categoryId}
+                    categoryId = #{category.categoryId},
                 </if>
+                updateTime = #{updateTime}
             </set>
             where id = #{id}
     </update>
@@ -78,15 +79,15 @@
         from commodity left outer join category on commodity.categoryId = category.categoryId
         <where>
             <if test="category != null">
-                category.categoryId = #{category.categoryId}
+                category.categoryId = #{category.categoryId} and
             </if>
             <if test="taste != null">
-                and taste = #{taste}
+                taste = #{taste} and
             </if>
             <if test="mfrsNumber != null">
-                and mfrsNumber = #{mfrsNumber}
+                mfrsNumber = #{mfrsNumber} and
             </if>
-            and deleteEnable = 0
+            deleteEnable = 0
         </where>
 
     </select>

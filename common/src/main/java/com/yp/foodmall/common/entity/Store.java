@@ -1,5 +1,6 @@
 package com.yp.foodmall.common.entity;
 
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,10 +13,11 @@ import java.util.Date;
 public class Store {
     private Integer storeId;
     private String storeName;
-    private double storeGrade;
+    private Double storeGrade;
     private String license;
-    private Master master;
-    private Integer phone;
+    private String phone;
     private Date createTime;
+    private String management;
     private Integer deleteEnable;
+    private Date updateTime;
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yp.foodmall.store.mapper.IMasterMapper">
+    <resultMap id="masterMapper" type="com.yp.foodmall.common.entity.Master">
+        <id property="masterId" column="masterId"/>
+        <result property="masterName" column="masterName"/>
+        <result property="masterPassword" column="masterPassword"/>
+        <result property="question" column="question"/>
+        <result property="answer" column="answer"/>
+        <result property="profit" column="profit"/>
+        <result property="deleteEnable" column="delete_enable"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="createTime" column="createTime"/>
+    </resultMap>
+
+    <insert id="insertMaster">
+        insert into master (masterName, masterPassword, question, answer, profit,delete_enable, updateTime, createTime) values
+        (#{masterName}, #{masterPassword}, #{question}, #{answer}, #{profit}, #{deleteEnable}, #{updateTime}, #{createTime})
+    </insert>
+
+    <update id="deleteMaster">
+        update master set delete_enable = 1
+    </update>
+
+    <update id="updateMaster">
+        update master
+        <set>
+            <if test="masterName != null">
+                masterName = #{masterName},
+            </if>
+            <if test="masterPassword != null">
+                masterPassword = #{masterPassword},
+            </if>
+            <if test="question != null">
+                question = #{question},
+            </if>
+            <if test="answer != null">
+                answer = #{answer},
+            </if>
+            <if test="profit != null">
+                profit = #{profit},
+            </if>
+            <if test="deleteEnable != null">
+                delete_enable = #{deleteEnable},
+            </if>
+                updateTime = #{updateTime}
+        </set>
+        where masterId = #{masterId}
+    </update>
+
+    <select id="selectMasterNamePassword" resultMap="masterMapper">
+        select * from master where masterName=#{masterName} and masterPassword = #{masterPassword} and delete_enable = 0
+    </select>
+
+    <select id="selectMasterById" resultMap="masterMapper">
+        select * from Master where masterId = #{masterId} and delete_enable = 0
+    </select>
+</mapper>

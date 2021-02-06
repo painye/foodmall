@@ -12,16 +12,56 @@
         <result property="phone" column="phone"/>
         <result property="createTime" column="createTime"/>
         <result property="deleteEnable" column="deleteEnable"/>
-        <association property="master" column="masterId" resultMap="masterMapper"/>
+        <result property="management" column="management"/>
+        <result property="updateTime" column="updateTime"/>
     </resultMap>
 
-    <resultMap id="masterMapper" type="com.yp.foodmall.common.entity.Master">
-        <id property="masterId" column="masterId"/>
-        <result property="userName" column="userName"/>
-        <result property="password" column="password"/>
-        <result property="question" column="question"/>
-        <result property="answer" column="question"/>
-        <result property="profit" column="profit"/>
-    </resultMap>
+    <insert id="insertStore">
+        insert into store (storeId,storeName,storeGrade,license,phone,createTime,deleteEnable, management) values
+        (#{storeId},#{storeName},#{storeGrade},#{license},#{phone},#{createTime},#{deleteEnable}, #{management})
+    </insert>
+
+    <update id="deleteStoreById">
+        update store set deleteEnable = 1 where storeId = #{storeId}
+    </update>
+
+    <update id="updateStore">
+        update store
+        <set>
+            <if test="storeName != null">
+                storeName = #{storeName},
+            </if>
+            <if test="storeGrade != null">
+                storeGrade = #{storeGrade},
+            </if>
+            <if test="storeName != null">
+                storeName = #{storeName},
+            </if>
+            <if test="license != null">
+                license = #{license},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="management != null">
+                management=#{management},
+            </if>
+            <if test="deleteEnable != null">
+                deleteEnable = #{deleteEnable},
+            </if>
+            updateTime = #{updateTime}
+        </set>
+        where storeId = #{storeId}
+    </update>
+
+    <select id="selectStoreById" resultMap="storeMapper">
+        select * from store where storeId = #{storeId}
+    </select>
+
+    <select id="selectStoreList" resultMap="storeMapper">
+        select storeName, storeGrade,license,phone from store
+        where  management=#{management} and deleteEnable = 0
+        order by storeGrade desc
+    </select>
 
 </mapper>
