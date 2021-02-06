@@ -11,7 +11,6 @@
         <result property="message" column="message"/>
         <result property="price" column="price"/>
         <result property="image" column="image"/>
-        <result property="stock" column="stock"/>
         <result property="exTime" column="exTime"/>
         <result property="taste" column="taste"/>
         <result property="mfrsNumber" column="mfrsNumber"/>
@@ -21,46 +20,16 @@
         <result property="createTime" column="createTime"/>
         <result property="updateTime" column="updateTime" />
         <result property="deleteEnable" column="deleteEnable"/>
-        <result property="sales" column="sales"/>
         <association property="category" column="categoryId" resultMap="categoryMapper"/>
-        <association property="store" column="storeId" resultMap="storeMapper"/>
     </resultMap>
-
-    <resultMap id="storeMapper" type="com.yp.foodmall.common.entity.Store">
-        <id property="storeId" column="storeId"/>
-        <result property="storeName" column="storeName"/>
-        <result property="storeGrade" column="storeGrade"/>
-        <result property="license" column="license"/>
-        <result property="phone" column="phone"/>
-        <result property="createTime" column="createTime"/>
-        <result property="deleteEnable" column="deleteEnable"/>
-        <association property="master" column="masterId" resultMap="masterMapper"/>
-    </resultMap>
-
-    <resultMap id="masterMapper" type="com.yp.foodmall.common.entity.Master">
-        <id property="masterId" column="masterId"/>
-        <result property="userName" column="userName"/>
-        <result property="password" column="password"/>
-        <result property="question" column="question"/>
-        <result property="answer" column="question"/>
-        <result property="profit" column="profit"/>
-    </resultMap>
-
-    <resultMap id="categoryMapper" type="com.yp.foodmall.common.entity.Category">
-        <id property="categoryId" column="categoryId"/>
-        <result property="categoryName" column="categoryName"/>
-        <result property="composition" column="composition"/>
-        <result property="categoryMessage" column="categoryMessage"/>
-    </resultMap>
-
 
 
     <insert id="insertCom">
         insert into commodity
-        (comNumber, comName,message,price,image,stock,
-        exTime,taste,mfrsNumber,pack,weight,grade,createTime,updateTime,deleteEnable,sales, categoryId, storeId) values
+        (comNumber, comName,message,price,image,
+        exTime,taste,mfrsNumber,pack,weight,grade,createTime,updateTime,deleteEnable, categoryId ) values
         (#{comNumber},#{comName},#{message},#{price},#{image}
-        ,#{stock},#{exTime},#{taste},#{mfrsNumber},#{pack},#{weight},#{grade},#{createTime},#{updateTime},#{deleteEnable},#{sales}, #{category.categoryId},#{store.storeId})
+        ,#{exTime},#{taste},#{mfrsNumber},#{pack},#{weight},#{grade},#{createTime},#{updateTime},#{deleteEnable}, #{category.categoryId})
     </insert>
 
 <!--    <insert id="deleteCom">-->
@@ -74,24 +43,28 @@
         update commodity
             <set>
                 <if test="comName != null">
-                    comName=#{comName},
+                    comName=#{comName}
                 </if>
                 <if test="message != null">
-                    message=#{message},
+                    ,message=#{message}
                 </if>
                 <if test="price != null">
-                     price=#{price},
+                     ,price=#{price}
                 </if>
                 <if test="image != null">
-                    image=#{image},
-                </if>
-                <if test="stock != null">
-                    stock=#{stock},
+                    ,image=#{image}
                 </if>
                 <if test="pack != null">
-                    pack=#{pack}
+                    ,pack=#{pack}
+                </if>
+                <if test="deleteEnable != null">
+                    ,delete_enable=#{deleteEnable}
+                </if>
+                <if test="category != null">
+                    ,categoryId = #{category.categoryId}
                 </if>
             </set>
+            where id = #{id}
     </update>
 
     <select id="selectOneByNUmber" resultMap="commodityMapper">
@@ -107,9 +80,6 @@
             <if test="category != null">
                 category.categoryId = #{category.categoryId}
             </if>
-            <if test="store != null">
-
-            </if>
             <if test="taste != null">
                 and taste = #{taste}
             </if>
@@ -121,29 +91,4 @@
 
     </select>
 
-    <insert id="insertCategory">
-        insert into category (categoryId, categoryName, categoryMessage, composition) values
-        (#{categoryId}, #{categoryName}, #{categoryMessage}, #{composition})
-    </insert>
-
-    <delete id="deleteCategory">
-        delete from category where categoryId = #{categoryId}
-    </delete>
-
-    <update id="updateCategory">
-        update category
-        <set>
-            <if test="categoryName != null">
-                categoryName=#{categoryName},
-            </if>
-            <if test="categoryMessage != null">
-                categoryMessage=#{categoryMessage},
-            </if>
-            <if test="composition != null">
-                composition=#{composition}
-            </if>
-        </set>
-        where categoryId=#{categoryId}
-
-    </update>
 </mapper>

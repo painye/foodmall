@@ -18,8 +18,6 @@ public class Commodity {
     private String message;
     private Double price;
     private String image;
-    private Store store;
-    private Integer stock;
     private Integer exTime;
     private String taste;
     private String mfrsNumber;
@@ -29,5 +27,4 @@ public class Commodity {
     private Date createTime;
     private Date  updateTime;
     private Integer deleteEnable;
-    private Integer sales;
 }

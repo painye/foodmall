@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yp.foodmall.store.mapper.IStoreMapper">
+    <resultMap id="storeMapper" type="com.yp.foodmall.common.entity.Store">
+        <id property="storeId" column="storeId"/>
+        <result property="storeName" column="storeName"/>
+        <result property="storeGrade" column="storeGrade"/>
+        <result property="license" column="license"/>
+        <result property="phone" column="phone"/>
+        <result property="createTime" column="createTime"/>
+        <result property="deleteEnable" column="deleteEnable"/>
+        <association property="master" column="masterId" resultMap="masterMapper"/>
+    </resultMap>
+
+    <resultMap id="masterMapper" type="com.yp.foodmall.common.entity.Master">
+        <id property="masterId" column="masterId"/>
+        <result property="userName" column="userName"/>
+        <result property="password" column="password"/>
+        <result property="question" column="question"/>
+        <result property="answer" column="question"/>
+        <result property="profit" column="profit"/>
+    </resultMap>
+
+</mapper>

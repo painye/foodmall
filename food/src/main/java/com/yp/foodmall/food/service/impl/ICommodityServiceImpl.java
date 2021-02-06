@@ -23,7 +23,6 @@ public class ICommodityServiceImpl implements ICommodityService {
         Date date =new Date();
         com.setCreateTime(date);
         com.setDeleteEnable(0);
-        com.setSales(0);
         comMapper.insertCom(com);
     }
 
