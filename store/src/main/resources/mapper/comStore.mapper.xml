@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yp.foodmall.store.mapper.IComStoreMapper">
+    <resultMap id="comStoreMapper" type="com.yp.foodmall.common.entity.ComStore">
+        <id property="comStoreId" column="com_store_id"/>
+        <result property="stock" column="stock"/>
+        <result property="sales" column="sales"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="deleteEnable" column="delete_enable"/>
+        <result property="salePrice" column="sale_price"/>
+        <association property="store" column="store_id" resultMap="com.yp.foodmall.store.mapper.IStoreMapper.storeMapper"/>
+        <association property="commodity" column="commodity_id" resultMap="commodityMapper"/>
+    </resultMap>
+
+    <resultMap id="commodityMapper" type="com.yp.foodmall.common.entity.Commodity">
+        <id property="id" column="id"/>
+        <result property="comNumber" column="comNumber"/>
+        <result property="comName" column="comName"/>
+        <result property="message" column="message"/>
+        <result property="price" column="price"/>
+        <result property="image" column="image"/>
+        <result property="exTime" column="exTime"/>
+        <result property="taste" column="taste"/>
+        <result property="mfrsNumber" column="mfrsNumber"/>
+        <result property="pack" column="pack"/>
+        <result property="weight" column="weight"/>
+        <result property="grade" column="grade"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime" />
+        <result property="deleteEnable" column="deleteEnable"/>
+        <association property="category" column="categoryId" resultMap="categoryMapper"/>
+    </resultMap>
+
+    <resultMap id="categoryMapper" type="com.yp.foodmall.common.entity.Category">
+        <id property="categoryId" column="categoryId"/>
+        <result property="categoryName" column="categoryName"/>
+        <result property="composition" column="composition"/>
+        <result property="categoryMessage" column="categoryMessage"/>
+    </resultMap>
+
+
+
+    <insert id="insertComStore">
+        insert into com_store_table (Commodity_id,store_id, stock, sales, createTime, updateTime, delete_enable, sale_price) values
+        (#{commodity.id}, #{store.storeId}, #{stock},#{sales}, #{createTime}, #{updateTime}, #{deleteEnable}, #{salePrice})
+    </insert>
+
+
+    <update id="deleteComStore">
+        update com_store_table set delete_enable = 1;
+    </update>
+
+    <update id="updateComStore">
+        update com_store_table
+        <set>
+            <if test="stock !=null">
+                stock = #{stock},
+            </if>
+            <if test="sales != null">
+                sales = #{sales},
+            </if>
+            <if test="deleteEnable != null">
+                delete_enable = #{deleteEnable},
+            </if>
+            <if test="salePrice != null">
+                sale_price = #{salePrice},
+            </if>
+            updateTime = #{updateTime}
+        </set>
+    </update>
+
+    <select id="selectComStore" resultMap="comStoreMapper">
+        select com_store_table.*, storeName, comName from com_store_table, commodity, store
+        where com_store_id=#{comStoreId} and commodity_id=id  and store_id = storeId
+    </select>
+
+    <select id="selectComStoreList" resultMap="comStoreMapper">
+        select com_store_table.*, storeName, comName from com_store_table, commodity, store
+        <where>
+            <if test="store.storeName != null">
+                store.storeName = #{store.storeName} and storeId = store_id and
+            </if>
+            <if test="commodity.comName != null">
+                commodity.comName = #{commodity.comName} and commodity_id = id and
+            </if>
+            delete_enable = 0
+        </where>
+            <if test="salePrice != null">
+                order by sale_price desc
+            </if>
+    </select>
+
+
+
+
+
+</mapper>
