@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/app/commodity")
+@RequestMapping("/app/food/commodity")
 @Api(tags = "商品管理")
 public class CommodityController {
     @Autowired
@@ -66,6 +66,13 @@ public class CommodityController {
     @PostMapping("/updateCate.do")
     public void updateCate(Category category){
         iCommodityService.updateCate(category);
+    }
+
+    @ApiOperation(value = "查找所有商品")
+    @GetMapping("/selectAllCom.do")
+    public List<Commodity> selectAllCom(){
+        List<Commodity> commodities = iCommodityService.selectAllCom();
+        return commodities;
     }
 
 }

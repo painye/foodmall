@@ -89,7 +89,10 @@
             </if>
             deleteEnable = 0
         </where>
+    </select>
 
+    <select id="selectAllCom" resultMap="commodityMapper">
+        select * from commodity
     </select>
 
 </mapper>

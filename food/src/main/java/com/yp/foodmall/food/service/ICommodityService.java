@@ -12,6 +12,7 @@ public interface ICommodityService {
     public void updateCom(Commodity com);
     public Commodity selectOneByNUmber(int id);
     public List<Commodity> selectList(Commodity com);
+    public List<Commodity> selectAllCom();
 
     //对category表的直接操作
     public void insertCate(Category category);

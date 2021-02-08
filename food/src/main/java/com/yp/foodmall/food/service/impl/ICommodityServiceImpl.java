@@ -48,6 +48,12 @@ public class ICommodityServiceImpl implements ICommodityService {
     }
 
     @Override
+    public List<Commodity> selectAllCom() {
+        List<Commodity> commodities = comMapper.selectAllCom();
+        return  commodities;
+    }
+
+    @Override
     public void insertCate(Category category) {
         comMapper.insertCategory(category);
     }

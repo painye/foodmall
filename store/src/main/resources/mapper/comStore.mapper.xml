@@ -75,7 +75,7 @@
 
     <select id="selectComStore" resultMap="comStoreMapper">
         select com_store_table.*, storeName, comName from com_store_table, commodity, store
-        where com_store_id=#{comStoreId} and commodity_id=id  and store_id = storeId
+        where com_store_id=#{comStoreId} and commodity_id=id  and store_id = storeId and com_store_table.delete_enable = 0
     </select>
 
     <select id="selectComStoreList" resultMap="comStoreMapper">
@@ -87,7 +87,7 @@
             <if test="commodity != null and commodity.comName != null">
                 commodity.comName = #{commodity.comName} and commodity_id = id and storeId = store_id and
             </if>
-            delete_enable = 0
+            com_store_table.delete_enable = 0
         </where>
             <if test="salePrice != null">
                 order by sale_price desc
@@ -95,7 +95,15 @@
     </select>
 
 
+    <select id="selectComStoreCS" resultMap="comStoreMapper">
+        select com_store_table.*, storeName, comName from com_store_table, commodity, store
+        where commodity_id = #{commodityId} and store_id = #{StoreId}
+        and commodity_id=id  and store_id = storeId and com_store_table.delete_enable = 0
+    </select>
 
-
+    <update id="updateStock">
+        update com_store_table set stock = stock+#{count}
+        where commodity_id = #{commodityId} and store_id = #{StoreId} and delete_enable = 0
+    </update>
 
 </mapper>

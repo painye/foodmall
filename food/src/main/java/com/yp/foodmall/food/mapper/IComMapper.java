@@ -15,10 +15,12 @@ public interface IComMapper {
     public int updateCom(Commodity com);
     public Commodity selectOneByNUmber(int comId);
     public List<Commodity> selectList(Commodity com);
-
+    public List<Commodity> selectAllCom();
 
     //category
     public int insertCategory(Category category);
     public int deleteCategory(int categoryId);
     public int updateCategory(Category category);
+
+
 }

@@ -47,4 +47,6 @@ public class IComStoreServiceImpl implements ComStoreService {
         List<ComStore> comStores = iComStoreMapper.selectComStoreList(comStore);
         return comStores;
     }
+
+
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yp.foodmall.store.mapper.IMasterStoreMapper">
+    <resultMap id="masterStoreMapper" type="com.yp.foodmall.common.entity.MasterStore">
+        <id property="masterStoreId" column="master_store_id"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="deleteEnable" column="delete_enable"/>
+        <association property="master" column="master_id" resultMap="com.yp.foodmall.store.mapper.IMasterMapper.masterMapper"/>
+        <association property="store"  column="store_id"  resultMap="com.yp.foodmall.store.mapper.IStoreMapper.storeMapper"/>
+    </resultMap>
+
+    <insert id="insertMasterStore">
+        insert into master_store_table (master_id, store_id, createTime, delete_enable) values
+        (#{master.masterId},#{store.storeId}, #{createTime}, #{deleteEnable})
+    </insert>
+
+    <update id="deleteMasterStore">
+        update master_store_table set delete_enable = 1 where master_store_id = #{msId}
+    </update>
+
+    <update id="updateMasterStore">
+        update master_store_table
+        <set>
+            <if test="master != null and master.masterId != null">
+                master_id = #{master.masterId},
+            </if>
+            <if test="store != null and store.storeId != null">
+                store_id = #{store.storeId},
+            </if>
+            <if test="deleteEnable != null">
+                delete_enable =#{deleteEnable},
+            </if>
+                updateTime = #{updateTime}
+        </set>
+        where master_store_id = #{masterStoreId}
+    </update>
+
+    <select id="selectMasterStore" resultMap="masterStoreMapper">
+        select master_store_table.* , master.masterName, store.storeName from master_store_table, master, store
+         where master_store_id = #{masterStoreId} and store.storeId = master_store_table.store_id
+         and master.masterId = master_store_table.master_id  and master_store_table.delete_enable = 0
+    </select>
+
+    <select id="selectMSList" resultMap="masterStoreMapper">
+        select master_store_table.* , master.masterName, store.storeName from master_store_table, master, store
+        where master_id = #{master.masterId} and master_store_table.delete_enable = 0 and store.storeId = master_store_table.store_id
+        and master.masterId = master_store_table.master_id
+    </select>
+
+
+</mapper>
