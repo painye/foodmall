@@ -79,13 +79,13 @@
     </select>
 
     <select id="selectComStoreList" resultMap="comStoreMapper">
-        select com_store_table.*, storeName, comName from com_store_table, commodity, store
+        select com_store_table.*, store.storeId,store.storeName, commodity.id,commodity.comName from com_store_table, commodity, store
         <where>
-            <if test="store.storeName != null">
-                store.storeName = #{store.storeName} and storeId = store_id and
+            <if test="store!= null and store.storeName != null ">
+                store.storeName = #{store.storeName} and storeId = store_id and commodity_id = id and
             </if>
-            <if test="commodity.comName != null">
-                commodity.comName = #{commodity.comName} and commodity_id = id and
+            <if test="commodity != null and commodity.comName != null">
+                commodity.comName = #{commodity.comName} and commodity_id = id and storeId = store_id and
             </if>
             delete_enable = 0
         </where>
