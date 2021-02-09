@@ -110,6 +110,7 @@
             <br>
             <el-col :span="24"><div class="grid-content " style="background: crimson;font-size: 30px;font-family: 'Copperplate Gothic Light';color: aqua">
                 火爆热售ing
+                <el-button @click="search(commodity.id)"></el-button>
             </div></el-col>
 
         </el-row>
@@ -121,34 +122,29 @@
                     height="250">
                 <el-table-column
                         fixed
-                        prop="date"
-                        label="日期"
+                        prop="commodity.comName"
+                        label="商品"
                         width="150">
                 </el-table-column>
                 <el-table-column
-                        prop="name"
-                        label="姓名"
+                        prop="store.storeName"
+                        label="店铺"
                         width="120">
                 </el-table-column>
                 <el-table-column
-                        prop="province"
-                        label="省份"
+                        prop="salePrice"
+                        label="售价"
                         width="120">
                 </el-table-column>
                 <el-table-column
-                        prop="city"
-                        label="市区"
+                        prop="sales"
+                        label="销量"
                         width="120">
                 </el-table-column>
                 <el-table-column
-                        prop="address"
-                        label="地址"
+                        prop="stock"
+                        label="库存"
                         width="300">
-                </el-table-column>
-                <el-table-column
-                        prop="zip"
-                        label="邮编"
-                        width="120">
                 </el-table-column>
             </el-table>
         </template>

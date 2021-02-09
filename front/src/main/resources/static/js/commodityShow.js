@@ -26,10 +26,7 @@ new Vue({
             deleteEnable:''
         },
 
-        comStore:{
-            comStoreId:'',
-
-        }
+       comStores:[]
     },
     mounted:function () {
         var _this = this;
@@ -43,6 +40,15 @@ new Vue({
     methods:{
         goBack: function () {
             window.open("http://localhost:63342/foodmall/front/static/html/index1.html?_ijt=770qf866d8431jg59hc263fhcv");
+
+        },
+
+        search:function (comId) {
+            var _this = this;
+            axios.get("http://localhost:8096/app/com_store/selectComStoreByComId.do?comId="+_this.currentId)
+                .then(function (response){
+                    _this.comStores = response.data;
+                })
 
         }
     }

@@ -14,4 +14,5 @@ public interface ComStoreService {
 
     public ComStore selectComStoreCS(int commodityId, int storeId);
     public void updateStock(int commodityId, int storeId, int count);
+    public List<ComStore> selectComStoreByComId(int comId);
 }

@@ -36,4 +36,11 @@ public class ComStoreController {
         ComStore comStore = iComStoreService.selectComStoreCS(commodityId, storeId);
         return comStore;
     }
+
+    @ApiOperation("查询某id的商铺商品")
+    @GetMapping("/selectComStoreByComId.do")
+    public List<ComStore> selectComStoreByComId(int comId){
+        List<ComStore> comStores = iComStoreService.selectComStoreByComId(comId);
+        return comStores;
+    }
 }

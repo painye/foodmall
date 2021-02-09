@@ -14,6 +14,8 @@ public interface IComStoreMapper {
     public ComStore selectComStore(int comStoreId);
     public List<ComStore> selectComStoreList(ComStore comStore);
 
+    public List<ComStore> selectComStoreByComId(int comId);
+
 
     public ComStore selectComStoreCS(@Param("commodityId") int commodityId, @Param("StoreId") int StoreId);
     public int updateStock(@Param("commodityId") int commodityId, @Param("StoreId") int StoreId, @Param("count") int count);

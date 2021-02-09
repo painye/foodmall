@@ -106,4 +106,10 @@
         where commodity_id = #{commodityId} and store_id = #{StoreId} and delete_enable = 0
     </update>
 
+    <select id="selectComStoreByComId" resultMap="comStoreMapper">
+        select com_store_table.*, storeName, comName from com_store_table, commodity, store
+        where commodity_id = #{comId}
+        and commodity_id=id  and store_id = storeId and com_store_table.delete_enable = 0
+
+    </select>
 </mapper>
