@@ -48,5 +48,16 @@ public class IComStoreServiceImpl implements ComStoreService {
         return comStores;
     }
 
+    @Override
+    public ComStore selectComStoreCS(int commodityId, int storeId) {
+        ComStore comStore = iComStoreMapper.selectComStoreCS(commodityId, storeId);
+        return  comStore;
+    }
+
+    @Override
+    public void updateStock(int commodityId, int storeId, int count) {
+        iComStoreMapper.updateStock(commodityId, storeId, count);
+    }
+
 
 }

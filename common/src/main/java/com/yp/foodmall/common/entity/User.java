@@ -16,7 +16,7 @@ public class User {
     private String userPhone;
     private String userImage;
     private Double money;
-    private String mPassword;
+    private String moneyPassword;
     private String userAddress;
     private Date createTime;
     private Integer deleteEnable;

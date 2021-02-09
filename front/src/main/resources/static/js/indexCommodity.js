@@ -7,7 +7,8 @@ new Vue({
             taste:''
 
         },
-        commoditys:[]
+        commoditys:[],
+
     },
     mounted: function (){
         var _this = this;
@@ -23,6 +24,5 @@ new Vue({
                     _this.commoditys = response.data;
                 })
         }
-
     }
 })

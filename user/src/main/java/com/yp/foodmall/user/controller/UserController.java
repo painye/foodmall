@@ -16,7 +16,8 @@ public class UserController {
 
     @PutMapping("/register.do")
     @ApiOperation("用户注册")
-    public void registerUser(User user){
+    public void registerUser(@RequestBody User user){
+        System.out.println(user);
         userService.registerUser(user);
     }
 

@@ -11,7 +11,7 @@
         <result property="userPhone" column="user_phone"/>
         <result property="userImage" column="user_image"/>
         <result property="money" column="money"/>
-        <result property="mPassword" column="m_password"/>
+        <result property="moneyPassword" column="m_password"/>
         <result property="userAddress" column="user_address"/>
         <result property="createTime" column="create_time"/>
         <result property="deleteEnable" column="delete_enable"/>
@@ -20,7 +20,7 @@
     <insert id="insertUser">
         insert into user_table
         (user_name,user_password,user_phone,user_image,money,m_password,user_address,create_time,delete_enable) values
-        (#{userName}, #{userPassword},#{userPhone}, #{userImage},#{money}, #{mPassword},#{userAddress}, #{createTime},#{deleteEnable})
+        (#{userName}, #{userPassword},#{userPhone}, #{userImage},#{money}, #{moneyPassword},#{userAddress}, #{createTime},#{deleteEnable})
     </insert>
 
     <update id="deleteUser">
@@ -46,7 +46,7 @@
                 money = #{money},
             </if>
             <if test="mPassword != null">
-                m_password = #{mPassword},
+                m_password = #{moneyPassword},
             </if>
             <if test="userAddress != null">
                 user_address = #{userAddress},

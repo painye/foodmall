@@ -16,24 +16,6 @@ public class ComStoreController {
     @Autowired
     private IComStoreServiceImpl iComStoreService;
 
-    @ApiOperation("商铺加货")
-    @PutMapping("/insertCom2Store")
-    public void insertCom2Store(ComStore comStore){
-        iComStoreService.insertComStore(comStore);
-    }
-
-    @ApiOperation("商铺删除货物的订购")
-    @PostMapping("/deleteComStore")
-    public void deleteComStore(int comStoreId){
-        iComStoreService.deleteComStore(comStoreId);
-    }
-
-    @ApiOperation("修改商铺信息")
-    @PostMapping("/updateComStore")
-    public void updateComStore(ComStore comStore){
-        iComStoreService.updateComStore(comStore);
-    }
-
     @ApiOperation("查询某编号的商铺商品")
     @GetMapping("/selectComStore")
     public ComStore selectComStore(int comStoreId){
@@ -46,5 +28,12 @@ public class ComStoreController {
     public List<ComStore> selectComStoreList(ComStore comStore){
         List<ComStore> comStores = iComStoreService.selectComStoreList(comStore);
         return comStores;
+    }
+
+    @GetMapping("/selectComStoreCS.do")
+    @ApiOperation("检索具体商品")
+    public ComStore selectComStoreCS(int commodityId, int storeId){
+        ComStore comStore = iComStoreService.selectComStoreCS(commodityId, storeId);
+        return comStore;
     }
 }
