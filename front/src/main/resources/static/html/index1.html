@@ -12,6 +12,7 @@
 </head>
 <body>
 <div id="app" style="width: 80%;margin: auto" >
+    <!--导航界面-->
     <el-menu
             :default-active="activeIndex2"
             class="el-menu-demo"
@@ -21,22 +22,36 @@
             text-color="#fff"
             active-text-color="#ffd04b">
         <el-menu-item>
-            <el-button type="text" @click="dialogVisible1 = true">登录</el-button>
+            <el-button type="text" @click="dialogVisible1 = true" icon="el-icon-user">登录</el-button>
             <el-dialog
                     title="提示"
                     :visible.sync="dialogVisible1"
                     width="30%"
                     :before-close="handleClose">
-                <span>这是一段信息</span>
+                <span>
+                    <el-form :model="ruleForm2" ref="user" label-width="100px" class="demo-ruleForm">
+                      <el-form-item label="用户名" prop="name" required>
+                        <el-input v-model="user.userName"></el-input>
+                      </el-form-item>
+                      <el-form-item label="登录密码" prop="pass" required>
+                        <el-input v-model="user.userPassword"></el-input>
+                      </el-form-item>
+                      <el-form-item>
+                        <el-button type="primary" @click="login()">登录</el-button>
+                        <el-button @click="resetForm('user')">重置</el-button>
+                      </el-form-item>
+                    </el-form>
+                </span>
                 <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible1 = false">取 消</el-button>
                 <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
                  </span>
             </el-dialog>
 
+        <!--注册-->
         </el-menu-item>
         <el-menu-item>
-            <el-button type="text" @click="dialogVisible2 = true">注册</el-button>
+            <el-button type="text" @click="dialogVisible2 = true" >注册</el-button>
             <el-dialog
                     title="提示"
                     :visible.sync="dialogVisible2"
@@ -93,6 +108,7 @@
         <el-menu-item index="3" disabled>消息中心</el-menu-item>
         <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
 
+    <!--图片走马灯-->
     </el-menu>
 
     <template>
@@ -104,13 +120,39 @@
             </el-carousel>
         </div>
     </template>
-    <el-input
-            placeholder="请输入内容"
-            prefix-icon="el-icon-search"
-            v-model="input2">
-    </el-input>
 
+    <span >
+        <img style="width: 120px;margin: auto"
+             src="https://img10.360buyimg.com/img/jfs/t1/159353/17/2928/457625/5ffd107fE2b4a7a10/e0ab266497850f64.gif">
+        <el-input style="width: 1000px"
+                  placeholder="请输入内容"
+                  prefix-icon="el-icon-search"
+                  v-model="input2">
     </el-input>
+    </span>
+    <br>
+    <element style="width: 20px;font-size: 40px; color: coral; font-family: arial">
+        销量爆棚
+    </element>
+    <el-row style="width: 80%">
+        <el-col :span="8" v-for="commodity in commoditys">
+            <el-card :body-style="{ padding: '0px' }">
+                <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+                <div style="padding: 14px;">
+                    <span>{{commodity.comName}}</span>
+                    <div class="bottom clearfix">
+                        <span>{{commodity.createTime}}</span>
+                        <a type="primary" :href="'commodityShow.html?id='+commodity.id+''">Go</a>
+                    </div>
+                </div>
+            </el-card>
+        </el-col>
+    </el-row>
+</div>
+<br>
+<br>
+
+<div id="commodity" style="margin: auto;width: 80%">
 
 
 </div>
@@ -129,6 +171,34 @@
 
     .el-carousel__item:nth-child(2n+1) {
         background-color: #d3dce6;
+    }
+</style>
+
+<style>
+
+    .bottom {
+        margin-top: 13px;
+        line-height: 12px;
+    }
+
+    .button {
+        padding: 0;
+        float: right;
+    }
+
+    .image {
+        width: 200px;
+        display: block;
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: "";
+    }
+
+    .clearfix:after {
+        clear: both
     }
 </style>
 

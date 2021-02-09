@@ -45,8 +45,8 @@ public class IUserServiceImpl implements UserService {
 
 //        restTemplate.execute("http://localhost:8099/app/foodmall/registerr.do", );
 
-        List<Commodity> commodity = restTemplate.getForObject("http://localhost:8099/app/food/commodity/findCommodityList.do?comName=三只松鼠坚果大礼包", List.class);
-        System.out.println(commodity);
+//        List<Commodity> commodity = restTemplate.getForObject("http://localhost:8099/app/food/commodity/findCommodityList.do?comName=三只松鼠坚果大礼包", List.class);
+//        System.out.println(commodity);
         return iUserMapper.selectOneByUserNameAndPassword(userName, userPassword);
     }
 

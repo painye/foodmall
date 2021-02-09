@@ -25,6 +25,7 @@ public class UserController {
     @ApiOperation("用户登录")
     public User logonUser(String userName, String userPassword){
         User user = userService.logonUser(userName, userPassword);
+        System.out.println(user);
         return user;
     }
 

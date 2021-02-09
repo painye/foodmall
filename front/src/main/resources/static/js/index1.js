@@ -14,6 +14,10 @@ new Vue({
             pass1:'',
             pass2:''
         },
+        ruleForm2:{
+            name:'',
+            pass:''
+        },
         user:{
             userId:'',
             userName:'',
@@ -26,11 +30,42 @@ new Vue({
             createTime:'',
             deleteEnable:'',
         },
+        commoditys:[],
+        commodity: {
+            id:'',
+            comNumber:'',
+            comName:'',
+            category: {
+                categoryId:'',
+                categoryName:'',
+                categoryMessage:'',
+                composition:''
+            },
+            message:'',
+            price:'',
+            image:'',
+            exTime:'',
+            taste:'',
+            mfrsNumber:'',
+            pack:'',
+            weight:'',
+            grade:'',
+            createTime:'',
+            updateTime:'',
+            deleteEnable:''
+        },
         sc:["https://gdp.alicdn.com/imgextra/i1/392147177/O1CN01yTATzq22t73oZIYnI_!!392147177.jpg"
             ,"https://gdp.alicdn.com/imgextra/i1/392147177/O1CN01yJNN5N22t7DnpwE4T_!!392147177.jpg"
             ,"https://gjusp.alicdn.com/img/img1612263539142-996.jpg@1000y-0ic_60Q.jpg_Q75.jpg"
             ,"https://gdp.alicdn.com/imgextra/i2/619123122/O1CN01cvnlfP1YvvAdtudVu_!!619123122.jpg"
             ,"https://gdp.alicdn.com/imgextra/i1/475325704/O1CN01CbRQF81s0TlXb1MuT_!!475325704.jpg"]
+    },
+    mounted: function (){
+        var _this = this;
+        axios.get("http://localhost:8099/app/food/commodity/selectAllCom.do")
+            .then(function (response){
+                _this.commoditys = response.data;
+            })
     },
     methods:{
         first:function () {
@@ -54,6 +89,18 @@ new Vue({
                 console.info(error);
             })
         },
+        login: function () {
+            var _this=this;
+            axios({
+                method:"get",
+                url:"http://localhost:8098/app/user/logon.do?"+"userName="+_this.user.userName+"&"+"userPassword="+_this.user.userPassword,
+            }).then(function (response) {
+                _this.user = response.data;
+                alert(_this.user.userName+"登录成功")
+            }).catch(function (error) {
+                console.info(error);
+            })
+        },
         handleClose(done) {
             this.$confirm('确认关闭？')
                 .then(_ => {
@@ -63,6 +110,22 @@ new Vue({
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
+        },
+        methods:{
+            rejister: function () {
+                axios.put("http://localhost:8099/app/food/commodity/")
+                    .then(function (response){
+                        _this.commoditys = response.data;
+                    })
+            }
         }
     }
+})
+
+new Vue({
+    el:"#commodity",
+    data:{
+
+    },
+
 })

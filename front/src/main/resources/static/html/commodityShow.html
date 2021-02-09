@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品界面</title>
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+    <div id="app" style="width: 80%;margin: auto">
+        <el-container>
+            <el-header height="30px">
+                <el-page-header @back="goBack()" content="详情页面" style="background: cadetblue">
+                </el-page-header>
+            </el-header>
+            <el-container>
+                <el-aside width="400px">
+                    <el-card :body-style="{ padding: '0px' }">
+                        <img :src="'../images/'+currentId+'.jpg'" class="image">
+                        <div style="padding: 1px;">
+                            <br>
+                            <span>{{commodity.comName}}</span>
+                            <div class="bottom clearfix">
+                                <time class="time">{{commodity.createTime}}</time>
+                            </div>
+                        </div>
+                    </el-card>
+                </el-aside>
+                <el-container>
+                    <el-main height="800px">
+                        <br>
+                        <el-row :gutter="20">
+                            <el-col :span="6"><div class="grid-content bg-purple">
+                                <b>商品名称：</b>{{commodity.comName}}
+                            </div></el-col>
+                            <el-col :span="6"><div class="grid-content bg-purple">
+                                <b>商品编号：</b>{{commodity.id}}
+                            </div></el-col>
+
+                        </el-row>
+                        <el-row :gutter="20">
+                            <el-col :span="6"><div class="grid-content bg-purple" >
+                                <b>所属种类编号：</b>{{commodity.category.categoryId}}
+                            </div></el-col>
+                            <el-col :span="6"><div class="grid-content bg-purple">
+                                <b>所属种类名称：</b>{{commodity.category.categoryName}}
+                            </div></el-col>
+                            <el-col :span="6"><div class="grid-content bg-purple">
+                                <b>所属种类详情：</b>{{commodity.category.categoryMessage}}
+                            </div></el-col>
+                            <el-col :span="6"><div class="grid-content bg-purple">
+                                <b>所属种类成分：</b>{{commodity.category.composition}}
+                            </div></el-col>
+                        </el-row>
+                        <el-row :gutter="20">
+                            <el-col :span="8"><div class="grid-content bg-purple" >
+                                <b>商品重量：</b>{{commodity.weight}}g
+                            </div></el-col>
+                            <el-col :span="8"><div class="grid-content bg-purple">
+                                <b>商品成本：</b>{{commodity.price}}元
+                            </div></el-col>
+                            <el-col :span="8"><div class="grid-content bg-purple">
+                                <b>商品保质期：</b>{{commodity.exTime}}
+                            </div></el-col>
+                        </el-row>
+                        <el-row :gutter="20">
+                            <el-col :span="8"><div class="grid-content bg-purple" >
+                                <b>商品口味：</b>{{commodity.taste}}
+                            </div></el-col>
+                            <el-col :span="8"><div class="grid-content bg-purple">
+                                <b>商品生产厂家：</b>{{commodity.mfrsNumber}}
+                            </div></el-col>
+                            <el-col :span="8"><div class="grid-content bg-purple">
+                                <b>商品包装方式：</b>{{commodity.pack}}
+                            </div></el-col>
+                        </el-row>
+                        <el-row :gutter="20">
+                            <el-col :span="24"><div class="grid-content bg-purple" >
+                                <b>商品详细信息：</b>{{commodity.message}}
+                            </div></el-col>
+                        </el-row>
+                        <el-row :gutter="20">
+                            <el-col :span="8"><div class="grid-content bg-purple" >
+                                <b>商品评分：</b>{{commodity.grade}}
+                            </div></el-col>
+                            <el-col :span="8"><div class="grid-content bg-purple">
+                                <b>商品生产日期：</b>{{commodity.createTime}}
+                            </div></el-col>
+                        </el-row>
+                    </el-main>
+                    <el-footer>
+                        <el-col :span="24"><div class="grid-content bg-purple">
+                        </div></el-col>
+                    </el-footer>
+                </el-container>
+            </el-container>
+        </el-container>
+
+        <el-row :gutter="20">
+            <br>
+            <br>
+            <br>
+            <el-col :span="24"><div class="grid-content " style="background: crimson;font-size: 30px;font-family: 'Copperplate Gothic Light';color: aqua">
+                火爆热售ing
+            </div></el-col>
+
+        </el-row>
+
+        <template>
+            <el-table
+                    :data="comStores"
+                    style="width: 80%"
+                    height="250">
+                <el-table-column
+                        fixed
+                        prop="date"
+                        label="日期"
+                        width="150">
+                </el-table-column>
+                <el-table-column
+                        prop="name"
+                        label="姓名"
+                        width="120">
+                </el-table-column>
+                <el-table-column
+                        prop="province"
+                        label="省份"
+                        width="120">
+                </el-table-column>
+                <el-table-column
+                        prop="city"
+                        label="市区"
+                        width="120">
+                </el-table-column>
+                <el-table-column
+                        prop="address"
+                        label="地址"
+                        width="300">
+                </el-table-column>
+                <el-table-column
+                        prop="zip"
+                        label="邮编"
+                        width="120">
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+
+
+    <style>
+        .time {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .bottom {
+            margin-top: 13px;
+            line-height: 12px;
+        }
+
+        .button {
+            padding: 0;
+            float: right;
+        }
+
+        .image {
+            width: 100%;
+            display: block;
+        }
+
+        .clearfix:before,
+        .clearfix:after {
+            display: table;
+            content: "";
+        }
+
+        .clearfix:after {
+            clear: both
+        }
+    </style>
+
+    <style>
+        .el-row {
+            margin-bottom: 20px;
+        &:last-child {
+             margin-bottom: 0;
+         }
+        }
+        .el-col {
+            border-radius: 4px;
+        }
+        .bg-purple-dark {
+            background: #99a9bf;
+        }
+        .bg-purple {
+            background: #d3dce6;
+        }
+        .bg-purple-light {
+            background: #e5e9f2;
+        }
+        .grid-content {
+            border-radius: 4px;
+            min-height: 36px;
+        }
+        .row-bg {
+            padding: 10px 0;
+            background-color: #f9fafc;
+        }
+    </style>
+<script src="../js/commodityShow.js" type="text/javascript"></script>
+</body>
+</html>
