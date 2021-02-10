@@ -57,9 +57,10 @@ public class OrderController {
         return orders;
     }
 
-    @ApiOperation("修改订单状态")
-    @GetMapping("/updateOrderStatus.do")
-    public void updateOrderStatus(int status){
-        iOrderService.updateOrder(status);
+
+    @ApiOperation("购买")
+    @PostMapping("/purchase.do")
+    public int purchase(int orderId, String username, String moneyPassword){
+        return iOrderService.purchase(orderId, username, moneyPassword);
     }
 }

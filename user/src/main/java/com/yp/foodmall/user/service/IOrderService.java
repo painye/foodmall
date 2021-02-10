@@ -11,5 +11,6 @@ public interface IOrderService {
     public List<Order> selectOrderByUser(int userId);
     public List<Order> selectOrderByCom(int comId);
     public List<Order> selectOrderByStore(int storeId);
-    public void updateOrder(int status);
+
+    public int purchase(int orderId, String userName, String moneyPassword);
 }
