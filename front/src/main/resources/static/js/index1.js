@@ -62,6 +62,18 @@ new Vue({
     },
     mounted: function (){
         var _this = this;
+        var myUrl = window.location.href;
+        var user_id = myUrl.substr(myUrl.lastIndexOf("=")+1);
+        if(user_id !=null){
+            axios({
+                method:"get",
+                url:"http://localhost:8098/app/user/selectUserById.do?userId="+user_id,
+            }).then(function (response) {
+                _this.user = response.data;
+            }).catch(function (error) {
+                console.info(error);
+            })
+        }
         axios.get("http://localhost:8099/app/food/commodity/selectAllCom.do")
             .then(function (response){
                 _this.commoditys = response.data;
@@ -110,22 +122,6 @@ new Vue({
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
-        },
-        methods:{
-            rejister: function () {
-                axios.put("http://localhost:8099/app/food/commodity/")
-                    .then(function (response){
-                        _this.commoditys = response.data;
-                    })
-            }
         }
     }
-})
-
-new Vue({
-    el:"#commodity",
-    data:{
-
-    },
-
 })

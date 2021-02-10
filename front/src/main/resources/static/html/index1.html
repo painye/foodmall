@@ -22,6 +22,9 @@
             text-color="#fff"
             active-text-color="#ffd04b">
         <el-menu-item>
+            您好{{user.userName}}
+        </el-menu-item>
+        <el-menu-item>
             <el-button type="text" @click="dialogVisible1 = true" icon="el-icon-user">登录</el-button>
             <el-dialog
                     title="提示"
@@ -142,7 +145,7 @@
                     <span>{{commodity.comName}}</span>
                     <div class="bottom clearfix">
                         <span>{{commodity.createTime}}</span>
-                        <a type="primary" :href="'commodityShow.html?id='+commodity.id+''">Go</a>
+                        <a type="primary" :href="'commodityShow.html?id='+commodity.id+'&userId='+user.userId+''">Go</a>
                     </div>
                 </div>
             </el-card>
