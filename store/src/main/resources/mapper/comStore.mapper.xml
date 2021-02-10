@@ -71,6 +71,7 @@
             </if>
             updateTime = #{updateTime}
         </set>
+        where com_store_id =#{comStoreId}
     </update>
 
     <select id="selectComStore" resultMap="comStoreMapper">

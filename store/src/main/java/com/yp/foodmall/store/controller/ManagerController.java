@@ -22,20 +22,21 @@ public class ManagerController {
     }
 
     @ApiOperation("商铺加货")
-    @PutMapping("/insertCom2Store")
+    @PutMapping("/insertCom2Store.do")
     public void insertCom2Store(ComStore comStore){
         iComStoreService.insertComStore(comStore);
     }
 
     @ApiOperation("商铺删除货物的订购")
-    @PostMapping("/deleteComStore")
+    @PostMapping("/deleteComStore.do")
     public void deleteComStore(int comStoreId){
         iComStoreService.deleteComStore(comStoreId);
     }
 
     @ApiOperation("修改商铺信息")
-    @PostMapping("/updateComStore")
-    public void updateComStore(ComStore comStore){
+    @PostMapping("/updateComStore.do")
+    public void updateComStore(@RequestBody ComStore comStore){
+        System.out.println(comStore);
         iComStoreService.updateComStore(comStore);
     }
 }

@@ -17,14 +17,14 @@ public class ComStoreController {
     private IComStoreServiceImpl iComStoreService;
 
     @ApiOperation("查询某编号的商铺商品")
-    @GetMapping("/selectComStore")
+    @GetMapping("/selectComStore.do")
     public ComStore selectComStore(int comStoreId){
         ComStore comStore = iComStoreService.selectComStore(comStoreId);
         return comStore;
     }
 
     @ApiOperation("查询特定条件下的商铺商品")
-    @GetMapping("/selectComStoreList")
+    @GetMapping("/selectComStoreList.do")
     public List<ComStore> selectComStoreList(ComStore comStore){
         List<ComStore> comStores = iComStoreService.selectComStoreList(comStore);
         return comStores;

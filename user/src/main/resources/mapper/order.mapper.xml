@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yp.foodmall.user.mapper.IOrderMapper">
+    <resultMap id="orderMapper" type="com.yp.foodmall.common.entity.Order">
+        <id property="orderId" column="order_id"/>
+        <result property="price" column="price"/>
+        <result property="count" column="count"/>
+        <result property="status" column="order_status"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="delete_enable" column="delete_enable"/>
+        <association property="comStore" column="com_store_id" resultMap="comStoreMapper"/>
+        <association property="user" column="user_id" resultMap="com.yp.foodmall.user.mapper.IUserMapper.userMapper"/>
+    </resultMap>
+
+    <resultMap id="storeMapper" type="com.yp.foodmall.common.entity.Store">
+        <id property="storeId" column="storeId"/>
+        <result property="storeName" column="storeName"/>
+        <result property="storeGrade" column="storeGrade"/>
+        <result property="license" column="license"/>
+        <result property="phone" column="phone"/>
+        <result property="createTime" column="createTime"/>
+        <result property="deleteEnable" column="deleteEnable"/>
+        <result property="management" column="management"/>
+        <result property="updateTime" column="updateTime"/>
+    </resultMap>
+
+    <resultMap id="comStoreMapper" type="com.yp.foodmall.common.entity.ComStore">
+        <id property="comStoreId" column="com_store_id"/>
+        <result property="stock" column="stock"/>
+        <result property="sales" column="sales"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="deleteEnable" column="delete_enable"/>
+        <result property="salePrice" column="sale_price"/>
+        <association property="store" column="store_id" resultMap="storeMapper"/>
+        <association property="commodity" column="commodity_id" resultMap="commodityMapper"/>
+    </resultMap>
+
+    <resultMap id="commodityMapper" type="com.yp.foodmall.common.entity.Commodity">
+        <id property="id" column="id"/>
+        <result property="comNumber" column="comNumber"/>
+        <result property="comName" column="comName"/>
+        <result property="message" column="message"/>
+        <result property="price" column="price"/>
+        <result property="image" column="image"/>
+        <result property="exTime" column="exTime"/>
+        <result property="taste" column="taste"/>
+        <result property="mfrsNumber" column="mfrsNumber"/>
+        <result property="pack" column="pack"/>
+        <result property="weight" column="weight"/>
+        <result property="grade" column="grade"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime" />
+        <result property="deleteEnable" column="deleteEnable"/>
+        <association property="category" column="categoryId" resultMap="categoryMapper"/>
+    </resultMap>
+
+    <resultMap id="categoryMapper" type="com.yp.foodmall.common.entity.Category">
+        <id property="categoryId" column="categoryId"/>
+        <result property="categoryName" column="categoryName"/>
+        <result property="composition" column="composition"/>
+        <result property="categoryMessage" column="categoryMessage"/>
+    </resultMap>
+
+    <insert id="insertOrder">
+        insert into order_table (user_id,com_store_id,price,counts,order_status,createTime,delete_enable) values
+        (#{user.userId}, #{comStore.comStoreId}, #{price}, #{count}, #{status}, #{createTime}, #{delete_enable})
+    </insert>
+
+    <update id="deleteOrder">
+        update order_table set delete_enable = 0 where order_id = #{orederId}
+    </update>
+
+    <select id="selectOrderById" resultMap="orderMapper">
+        select  o.order_id, s.storeName, c.comName, u.user_name, o.price, o.counts, o.order_status from order_table o, user_table u, commodity c, store s, com_store_table cs
+        where order_id = #{orderId} and  o.user_id = u.user_id and o.com_store_id = cs.com_store_id and cs.commodity_id = c.id and cs.store_id = s.storeId and o.delete_enable = 0
+    </select>
+
+    <select id="selectOrderByUser" resultMap="orderMapper">
+        select  o.order_id, s.storeName, c.comName, u.user_name, o.price, o.counts, o.order_status from order_table o, user_table u, commodity c, store s, com_store_table cs
+        where o.user_id = #{userId} and o.user_id = u.user_id and o.com_store_id = cs.com_store_id and cs.commodity_id = c.id and cs.store_id = s.storeId and o.delete_enable = 0
+    </select>
+
+    <select id="selectOrderByCom" resultMap="orderMapper">
+
+    </select>
+
+    <select id="selectOrderByStore" resultMap="orderMapper">
+
+    </select>
+
+    <update id="updateOrder">
+        update order_table set order_status = #{status}
+    </update>
+
+    </mapper>
