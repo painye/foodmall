@@ -27,9 +27,9 @@
                         <img :src="'../images/'+currentId+'.jpg'" class="image">
                         <div style="padding: 1px;">
                             <br>
-                            <span>{{commodity.comName}}</span>
+                            <span>{{order.comStore.commodity.comName}}</span>
                             <div class="bottom clearfix">
-                                <time class="time">{{commodity.createTime}}</time>
+                                <time class="time">{{ order.comStore.commodity.createTime}}</time>
                             </div>
                         </div>
                     </el-card>
@@ -39,60 +39,60 @@
                         <br>
                         <el-row :gutter="20">
                             <el-col :span="6"><div class="grid-content bg-purple">
-                                <b>商品名称：</b>{{commodity.comName}}
+                                <b>商品名称：</b>{{order.comStore.commodity.comName}}
                             </div></el-col>
                             <el-col :span="6"><div class="grid-content bg-purple">
-                                <b>商品编号：</b>{{commodity.id}}
+                                <b>商品编号：</b>{{order.comStore.commodity.id}}
                             </div></el-col>
 
                         </el-row>
                         <el-row :gutter="20">
                             <el-col :span="6"><div class="grid-content bg-purple" >
-                                <b>所属种类编号：</b>{{commodity.category.categoryId}}
+                                <b>所属种类编号：</b>{{order.comStore.commodity.category.categoryId}}
                             </div></el-col>
                             <el-col :span="6"><div class="grid-content bg-purple">
-                                <b>所属种类名称：</b>{{commodity.category.categoryName}}
+                                <b>所属种类名称：</b>{{order.comStore.commodity.category.categoryName}}
                             </div></el-col>
                             <el-col :span="6"><div class="grid-content bg-purple">
-                                <b>所属种类详情：</b>{{commodity.category.categoryMessage}}
+                                <b>所属种类详情：</b>{{order.comStore.commodity.category.categoryMessage}}
                             </div></el-col>
                             <el-col :span="6"><div class="grid-content bg-purple">
-                                <b>所属种类成分：</b>{{commodity.category.composition}}
+                                <b>所属种类成分：</b>{{order.comStore.commodity.category.composition}}
                             </div></el-col>
                         </el-row>
                         <el-row :gutter="20">
                             <el-col :span="8"><div class="grid-content bg-purple" >
-                                <b>商品重量：</b>{{commodity.weight}}g
+                                <b>商品重量：</b>{{order.comStore.commodity.weight}}g
                             </div></el-col>
                             <el-col :span="8"><div class="grid-content bg-purple">
-                                <b>商品成本：</b>{{commodity.price}}元
+                                <b>商品成本：</b>{{order.comStore.commodity.price}}元
                             </div></el-col>
                             <el-col :span="8"><div class="grid-content bg-purple">
-                                <b>商品保质期：</b>{{commodity.exTime}}
+                                <b>商品保质期：</b>{{order.comStore.commodity.exTime}}
                             </div></el-col>
                         </el-row>
                         <el-row :gutter="20">
                             <el-col :span="8"><div class="grid-content bg-purple" >
-                                <b>商品口味：</b>{{commodity.taste}}
+                                <b>商品口味：</b>{{order.comStore.commodity.taste}}
                             </div></el-col>
                             <el-col :span="8"><div class="grid-content bg-purple">
-                                <b>商品生产厂家：</b>{{commodity.mfrsNumber}}
+                                <b>商品生产厂家：</b>{{order.comStore.commodity.mfrsNumber}}
                             </div></el-col>
                             <el-col :span="8"><div class="grid-content bg-purple">
-                                <b>商品包装方式：</b>{{commodity.pack}}
+                                <b>商品包装方式：</b>{{order.comStore.commodity.pack}}
                             </div></el-col>
                         </el-row>
                         <el-row :gutter="20">
                             <el-col :span="24"><div class="grid-content bg-purple" >
-                                <b>商品详细信息：</b>{{commodity.message}}
+                                <b>商品详细信息：</b>{{order.comStore.commodity.message}}
                             </div></el-col>
                         </el-row>
                         <el-row :gutter="20">
                             <el-col :span="8"><div class="grid-content bg-purple" >
-                                <b>商品评分：</b>{{commodity.grade}}
+                                <b>商品评分：</b>{{order.comStore.commodity.grade}}
                             </div></el-col>
                             <el-col :span="8"><div class="grid-content bg-purple">
-                                <b>商品生产日期：</b>{{commodity.createTime}}
+                                <b>商品生产日期：</b>{{order.comStore.commodity.createTime}}
                             </div></el-col>
                         </el-row>
                     </el-main>
@@ -110,7 +110,7 @@
             <br>
             <el-col :span="24"><div class="grid-content " style="background: crimson;font-size: 30px;font-family: 'Copperplate Gothic Light';color: aqua">
                 火爆热售ing
-                <el-button @click="search(commodity.id)"></el-button>
+                <el-button @click="search(order.comStore.commodity.id)"></el-button>
             </div></el-col>
 
         </el-row>
@@ -148,11 +148,10 @@
                 </el-table-column>
                 <el-table-column
                         fixed="right"
-                        label="操作"
+                        label="购买"
                         width="100">
                     <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                        <el-button type="text" size="small">编辑</el-button>
+                        <el-button @click="purchase(scope.row)" type="text" size="small">购买</el-button>
                     </template>
                 </el-table-column>
             </el-table>
