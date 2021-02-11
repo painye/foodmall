@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * @author dell
+ */
 @Mapper
 public interface IOrderMapper {
 
@@ -16,5 +19,4 @@ public interface IOrderMapper {
     public List<Order> selectOrderByUser(int userId);
     public List<Order> selectOrderByCom(int comId);
     public List<Order> selectOrderByStore(int storeId);
-
 }

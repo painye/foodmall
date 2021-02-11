@@ -4,6 +4,7 @@ import com.yp.foodmall.common.entity.Order;
 import com.yp.foodmall.user.service.IOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,5 +63,12 @@ public class OrderController {
     @PostMapping("/purchase.do")
     public int purchase(int orderId, String username, String moneyPassword){
         return iOrderService.purchase(orderId, username, moneyPassword);
+    }
+
+    @ApiOperation("某用户最近的一次订单进行付款")
+    @PostMapping("/buyLast.do")
+    public int buyLast(@Param("userId") Integer userId, @Param("userName") String userName,@Param("moneyPassword") String moneyPassword){
+        System.out.println(userId+" "+userName+" "+moneyPassword);
+        return iOrderService.buyLast(userId, userName, moneyPassword);
     }
 }

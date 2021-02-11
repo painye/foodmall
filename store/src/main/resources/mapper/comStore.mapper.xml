@@ -108,7 +108,7 @@
     </update>
 
     <select id="selectComStoreByComId" resultMap="comStoreMapper">
-        select com_store_table.*, storeName, comName from com_store_table, commodity, store
+        select com_store_table.*, store.*, commodity.* from com_store_table, commodity, store
         where commodity_id = #{comId}
         and commodity_id=id  and store_id = storeId and com_store_table.delete_enable = 0
 

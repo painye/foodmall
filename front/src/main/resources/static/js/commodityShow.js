@@ -92,7 +92,16 @@ new Vue({
             createTime:'',
             updateTime:'',
             delete_enable:''
-        }
+        },
+
+        ruleForm:{
+            name:'',
+            pass:''
+        },
+
+        dialogVisible1:false,
+        currentUserName:'',
+        currentMoneyPassword:''
     },
     mounted:function () {
         var _this = this;
@@ -127,7 +136,9 @@ new Vue({
         },
         purchase:function(comstore){
             var _this= this;
+            var currentCategoryId = _this.order.comStore.commodity.category.categoryId
             _this.order.comStore=comstore;
+            _this.order.comStore.commodity.category.categoryId = currentCategoryId
             _this.order.price=_this.order.comStore.salePrice;
             var orderId = _this.order.orderId;
             axios({
@@ -135,15 +146,33 @@ new Vue({
                 data: _this.order,
                 url:"http://localhost:8098/app/foodmall/user/order/insertOrder.do"
             })
+        },
+        pay:function () {
+            var _this=this;
             axios({
                 method:"post",
-                data: orderId,
-                url:"http://localhost:8098/app/foodmall/user/order/insertOrder.do"
+                params: {
+                    userId: _this.order.user.userId + "",
+                    userName: _this.currentUserName,
+                    moneyPassword: _this.currentMoneyPassword
+                },
+                url:"http://localhost:8098/app/foodmall/user/order/buyLast.do"
             }).then(function (response){
                 if(response.data = 1){
                     alert("购买成功")
                 }else   alert("购买失败，密码错误")
             })
+
+        },
+        handleClose(done) {
+            this.$confirm('确认关闭？')
+                .then(_ => {
+                    done();
+                })
+                .catch(_ => {});
+        },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
         }
     }
 })

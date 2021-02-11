@@ -11,6 +11,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
+/**
+ * @author dell
+ */
 @Service
 public class IOrderServiceImpl implements IOrderService {
     @Autowired
@@ -98,7 +101,16 @@ public class IOrderServiceImpl implements IOrderService {
             //购买成功去修改商铺商品的库存和销量
             restTemplate.postForObject("http://localhost:8096/app/store/manage/updateComStore.do", cs, Object.class);
             iOrderMapper.updateOrder(orderId, 1);
-        }else   flag=0;
+        }else {
+            flag = 0;
+        }
         return flag;
+    }
+
+    @Override
+    public int buyLast(int userId, String userName, String moneyPassword) {
+        List<Order> orders = selectOrderByUser(userId);
+        Integer orderId = orders.get(0).getOrderId();
+        return purchase(orderId, userName, moneyPassword);
     }
 }

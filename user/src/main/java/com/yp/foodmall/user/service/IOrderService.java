@@ -13,4 +13,5 @@ public interface IOrderService {
     public List<Order> selectOrderByStore(int storeId);
 
     public int purchase(int orderId, String userName, String moneyPassword);
+    public int buyLast(int userId, String userName, String moneyPassword);
 }
