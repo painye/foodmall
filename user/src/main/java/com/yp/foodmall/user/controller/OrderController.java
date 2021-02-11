@@ -18,7 +18,7 @@ public class OrderController {
 
     @ApiOperation("购买产生新的订单")
     @PutMapping("/insertOrder.do")
-    public void purchase(Order order){
+    public void insertOder(@RequestBody Order order){
         iOrderService.insertOrder(order);
     }
 

@@ -127,10 +127,22 @@ new Vue({
         },
         purchase:function(comstore){
             var _this= this;
-            alert(comstore.comStoreId);
+            _this.order.comStore=comstore;
+            _this.order.price=_this.order.comStore.salePrice;
+            var orderId = _this.order.orderId;
             axios({
                 method:"put",
+                data: _this.order,
                 url:"http://localhost:8098/app/foodmall/user/order/insertOrder.do"
+            })
+            axios({
+                method:"post",
+                data: orderId,
+                url:"http://localhost:8098/app/foodmall/user/order/insertOrder.do"
+            }).then(function (response){
+                if(response.data = 1){
+                    alert("购买成功")
+                }else   alert("购买失败，密码错误")
             })
         }
     }

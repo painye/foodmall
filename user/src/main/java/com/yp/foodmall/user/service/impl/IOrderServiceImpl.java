@@ -22,6 +22,7 @@ public class IOrderServiceImpl implements IOrderService {
     @Override
     public void insertOrder(Order order) {
 //        List<Commodity> commodity = restTemplate.getForObject("http://localhost:8099/app/food/commodity/findCommodityList.do?comName=三只松鼠坚果大礼包", List.class);
+        System.out.println(order);
         Integer count = order.getCount();
         Integer comStoreId = order.getComStore().getComStoreId();
         //多模块调用，调用store模块中的com_store中的服务查询com_store表中的某id下的所有数据，拿到当前这个商铺所售物品的基本信息，以comStore来回收
