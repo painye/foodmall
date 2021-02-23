@@ -81,7 +81,7 @@
     </select>
 
     <select id="selectOrderByUser" resultMap="orderMapper">
-        select  o.order_id, s.storeName, c.comName, u.user_name, o.price, o.counts, o.order_status from order_table o, user_table u, commodity c, store s, com_store_table cs
+        select  o.order_id, s.storeName, c.comName, u.user_name, o.price, o.counts, o.order_status, o.createTime from order_table o, user_table u, commodity c, store s, com_store_table cs
         where o.user_id = #{userId} and o.user_id = u.user_id and o.com_store_id = cs.com_store_id and cs.commodity_id = c.id and cs.store_id = s.storeId and o.delete_enable = 0
         order by o.order_id desc
     </select>
@@ -97,6 +97,7 @@
     <update id="updateOrder">
         update order_table set order_status = #{status} where order_id = #{orderId}
     </update>
+
 
 
 

@@ -68,7 +68,7 @@
     </select>
 
     <select id="selectList" resultMap="userMapper">
-        s
+
     </select>
 
 
